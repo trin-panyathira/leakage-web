@@ -8,6 +8,8 @@ Run: npm run dev
 
 ## Build Docker
 docker build -t leakage-web .
+docker tag leakage-web:latest trinisdocker/leakage-web:latest
+docker push trinisdocker/leakage-web:latest
 
 ## Scripts
 - dev: start dev server at http://localhost:80
