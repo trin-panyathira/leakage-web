@@ -7,7 +7,7 @@ Build: npm install
 Run: npm run dev
 
 ## Scripts
-- dev: start dev server at http://localhost:8000
+- dev: start dev server at http://localhost:80
 - build: build for production
 - preview: preview production build
 
