@@ -2,6 +2,10 @@
 
 React + Vite + TypeScript app for maker/approver/super approver workflow.
 
+## Build & Run
+Build: npm install
+Run: npm run dev
+
 ## Scripts
 - dev: start dev server at http://localhost:8000
 - build: build for production
