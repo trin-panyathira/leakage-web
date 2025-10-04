@@ -6,6 +6,9 @@ React + Vite + TypeScript app for maker/approver/super approver workflow.
 Build: npm install
 Run: npm run dev
 
+## Build Docker
+docker build -t leakage-web .
+
 ## Scripts
 - dev: start dev server at http://localhost:80
 - build: build for production
