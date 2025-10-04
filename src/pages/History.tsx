@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../state/auth'
 import { historyForUser } from '../state/requests'
 import { RequestItem } from '../types'
+import { sendEmailForRequest } from '../state/requests'
 
 const STATUS_OPTIONS: Array<RequestItem['status'] | 'ALL'> = [
   'ALL',
@@ -16,6 +17,8 @@ export function History() {
   const [items, setItems] = useState<RequestItem[]>([])
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<'ALL' | RequestItem['status']>('ALL')
+  const [sending, setSending] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const run = async () => {
@@ -24,6 +27,11 @@ export function History() {
     }
     run()
   }, [user])
+
+  const refresh = async () => {
+    if (!user) return
+    setItems(await historyForUser(user))
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -97,31 +105,62 @@ export function History() {
                 <th>Created At</th>
                 <th>Last Action</th>
                 <th>Description</th>
+                {user?.role === 'maker' && <th>Action</th>}
               </tr>
             </thead>
             <tbody>
-              {filtered.map(item => (
-                <tr key={item.id} className="history-row">
-                  <td className="history-id">#{item.id}</td>
-                  <td className="history-title">{item.title}</td>
-                  <td className="history-maker">{item.makerId}</td>
-                  <td className="history-status">{getStatusBadge(item.status)}</td>
-                  <td className="history-approver">{item.approverId || '-'}</td>
-                  <td className="history-super-approver">{item.superApproverId || '-'}</td>
-                  <td className="history-date">{formatDate(item.createdAt)}</td>
-                  <td className="history-last-action">{getLastAction(item.actions)}</td>
-                  <td className="history-description">
-                    <div className="description-text" title={item.description}>
-                      {item.description.length > 100 
-                        ? `${item.description.substring(0, 100)}...` 
-                        : item.description
-                      }
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {filtered.map(item => {
+                const isApproved = item.status === 'APPROVED'
+                const hasSentEmail = item.actions.some(a => a.type === 'SEND_EMAIL')
+                return (
+                  <tr key={item.id} className="history-row">
+                    <td className="history-id">#{item.id}</td>
+                    <td className="history-title">{item.title}</td>
+                    <td className="history-maker">{item.makerId}</td>
+                    <td className="history-status">{getStatusBadge(item.status)}</td>
+                    <td className="history-approver">{item.approverId || '-'}</td>
+                    <td className="history-super-approver">{item.superApproverId || '-'}</td>
+                    <td className="history-date">{formatDate(item.createdAt)}</td>
+                    <td className="history-last-action">{getLastAction(item.actions)}</td>
+                    <td className="history-description">
+                      <div className="description-text" title={item.description}>
+                        {item.description.length > 100 
+                          ? `${item.description.substring(0, 100)}...` 
+                          : item.description
+                        }
+                      </div>
+                    </td>
+                    {user?.role === 'maker' && (
+                      <td>
+                        {isApproved && !hasSentEmail ? (
+                          <button
+                            disabled={sending === item.id}
+                            onClick={async () => {
+                              setSending(item.id)
+                              setError(null)
+                              try {
+                                await sendEmailForRequest(item.id, user)
+                                await refresh()
+                              } catch (e: any) {
+                                setError('Failed to send email: ' + (e?.message || 'Unknown error'))
+                              } finally {
+                                setSending(null)
+                              }
+                            }}
+                          >
+                            {sending === item.id ? 'Sending...' : 'Send Email'}
+                          </button>
+                        ) : isApproved && hasSentEmail ? (
+                          <span style={{ color: 'green', fontWeight: 'bold' }}>Already sent email</span>
+                        ) : null}
+                      </td>
+                    )}
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
+          {error && <div style={{ color: 'red' }}>{error}</div>}
         </div>
       )}
     </div>

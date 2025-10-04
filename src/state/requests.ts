@@ -48,4 +48,8 @@ export async function createLeakageRequest(
 ): Promise<RequestItem> {
   const res = await api.post('/api/requests/leakage', payload, user)
   return res as RequestItem
+}
+
+export async function sendEmailForRequest(id: number, user: User): Promise<void> {
+  await api.post(`/api/requests/${id}/send-email`, {}, user)
 } 
