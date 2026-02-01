@@ -14,11 +14,11 @@ Open browser: **http://localhost:80**
 
 ---
 
-## 2️⃣ Test as Maker
+## 2️⃣ Test as Sales
 
 ### Login
-- Username: `maker1`
-- Role: `maker`
+- Username: `sales1`
+- Role: `sales`
 
 ### Create a Request
 1. Click **"Make Request"**
@@ -67,11 +67,11 @@ Open browser: **http://localhost:80**
 
 ---
 
-## 5️⃣ Send Email (Back to Maker)
+## 5️⃣ Send Email (Back to Sales)
 
-### Login as Maker
-- Username: `maker1`
-- Role: `maker`
+### Login as Sales
+- Username: `sales1`
+- Role: `sales`
 
 ### Send Email
 1. Click **"History"**
@@ -93,7 +93,7 @@ Open browser: **http://localhost:80**
 
 ### Login Roles
 ```
-maker           → Create requests, send emails
+sales           → Create requests, send emails
 approver        → Approve/reject/escalate requests
 super_approver  → Approve/reject escalated requests
 ```

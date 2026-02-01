@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { MakeRequest } from './pages/MakeRequest'
 import { Approve } from './pages/Approve'
@@ -10,9 +10,10 @@ import { NavBar } from './components/NavBar'
 export function App() {
   const { user, ready } = useAuth()
   const location = useLocation()
+  const [sidebarVisible, setSidebarVisible] = useState(true)
 
   const defaultPath = user
-    ? (user.role === 'maker' ? '/make-request' : '/approve')
+    ? (user.role === 'sales' ? '/make-request' : '/approve')
     : '/login'
 
   if (!ready) {
@@ -20,9 +21,12 @@ export function App() {
   }
 
   return (
-    <div className="layout">
-      <aside className="sidebar">
-        <NavBar />
+    <div className={`layout ${sidebarVisible ? 'sidebar-visible' : 'sidebar-collapsed'}`}>
+      <aside className={`sidebar ${sidebarVisible ? '' : 'sidebar-hidden'}`}>
+        <NavBar
+          sidebarVisible={sidebarVisible}
+          onToggleSidebar={() => setSidebarVisible(!sidebarVisible)}
+        />
       </aside>
       <main className="main">
         <Routes>
@@ -30,7 +34,7 @@ export function App() {
           <Route
             path="/make-request"
             element={
-              user?.role === 'maker' ? <MakeRequest /> : <Navigate to="/login" replace />
+              user?.role === 'sales' ? <MakeRequest /> : <Navigate to="/login" replace />
             }
           />
           <Route
@@ -53,4 +57,4 @@ export function App() {
       </main>
     </div>
   )
-} 
+}

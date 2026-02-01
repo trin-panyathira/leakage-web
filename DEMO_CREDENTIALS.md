@@ -2,9 +2,9 @@
 
 ## Quick Start - Login Credentials
 
-### Maker
-- **Username**: `maker1` (or any name)
-- **Role**: `maker`
+### Sales
+- **Username**: `sales1` (or any name)
+- **Role**: `sales`
 
 ### Approver
 - **Username**: `approver1` (or any name)
@@ -40,8 +40,8 @@ Copy and paste these ID cards when testing:
 
 ## Demo Workflow Scenarios
 
-### Scenario 1: Create New Request (as Maker)
-1. Login as `maker1` with role `maker`
+### Scenario 1: Create New Request (as Sales)
+1. Login as `sales1` with role `sales`
 2. Go to "Make Request"
 3. Enter ID Card: `1234567890123`
 4. Click "Search"
@@ -62,8 +62,8 @@ Copy and paste these ID cards when testing:
 3. See escalated requests (PENDING_SUPER)
 4. Click "Approve" or "Reject"
 
-### Scenario 4: Send Email (as Maker)
-1. Login as `maker1` with role `maker`
+### Scenario 4: Send Email (as Sales)
+1. Login as `sales1` with role `sales`
 2. Go to "History"
 3. Find an APPROVED request
 4. Click "Send Email"

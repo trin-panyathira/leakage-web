@@ -1,6 +1,6 @@
 # leakage-web
 
-React + Vite + TypeScript app for maker/approver/super approver workflow.
+React + Vite + TypeScript app for Sales/Approver/Super Approver workflow.
 
 ## 🎯 Mock API Mode (Demo Without Backend)
 
@@ -47,4 +47,4 @@ docker push trinisdocker/leakage-web:latest
 The dev server proxies `/api` calls to `http://localhost:8081` (when using real backend).
 
 ## Roles
-Login lets you pick a username and role. Maker can create requests, Approver/Super Approver can action them, all roles can view History.
+Login lets you pick a username and role. Sales can create requests, Approver/Super Approver can action them, all roles can view History.

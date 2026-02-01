@@ -1,4 +1,4 @@
-export type Role = 'maker' | 'approver' | 'super_approver'
+export type Role = 'sales' | 'approver' | 'super_approver'
 
 export interface User {
   id: string

@@ -74,13 +74,13 @@ const initializeMockData = () => {
       id: requestIdCounter++,
       title: 'Leakage Request for CA001',
       description: 'Customer: John Doe, CA: CA001, New Loan Amount: 450000, Rates: 5.0%, 5.5%, 6.0%',
-      makerId: 'maker1',
+      makerId: 'sales1',
       status: 'PENDING_APPROVER',
       createdAt: new Date(Date.now() - 86400000).toISOString(),
       actions: [
         {
           at: new Date(Date.now() - 86400000).toISOString(),
-          actorId: 'maker1',
+          actorId: 'sales1',
           type: 'CREATE',
           note: 'Initial request created',
         },
@@ -91,14 +91,14 @@ const initializeMockData = () => {
       id: requestIdCounter++,
       title: 'Leakage Request for CA003',
       description: 'Customer: Jane Smith, CA: CA003, New Loan Amount: 700000, Rates: 5.5%, 6.0%, 6.5%',
-      makerId: 'maker1',
+      makerId: 'sales1',
       status: 'APPROVED',
       approverId: 'approver1',
       createdAt: new Date(Date.now() - 172800000).toISOString(),
       actions: [
         {
           at: new Date(Date.now() - 172800000).toISOString(),
-          actorId: 'maker1',
+          actorId: 'sales1',
           type: 'CREATE',
           note: 'Initial request created',
         },
@@ -115,14 +115,14 @@ const initializeMockData = () => {
       id: requestIdCounter++,
       title: 'Leakage Request for CA004',
       description: 'Customer: Bob Johnson, CA: CA004, New Loan Amount: 950000, Rates: 5.0%, 5.5%, 6.0%',
-      makerId: 'maker2',
+      makerId: 'sales2',
       status: 'PENDING_SUPER',
       approverId: 'approver1',
       createdAt: new Date(Date.now() - 259200000).toISOString(),
       actions: [
         {
           at: new Date(Date.now() - 259200000).toISOString(),
-          actorId: 'maker2',
+          actorId: 'sales2',
           type: 'CREATE',
           note: 'Initial request created',
         },
@@ -282,7 +282,7 @@ export const mockApi = {
   sendEmailForRequest: (id: number, userId: string, role: string): void => {
     const request = mockRequests.find((r) => r.id === id)
     if (!request) throw new Error('Request not found')
-    if (role !== 'maker') throw new Error('Only maker can send email')
+    if (role !== 'sales') throw new Error('Only sales can send email')
     if (request.status !== 'APPROVED') throw new Error('Can only send email for approved requests')
 
     const alreadySent = request.actions.some((a) => a.type === 'SEND_EMAIL')

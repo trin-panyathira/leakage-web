@@ -19,8 +19,8 @@ async function mockRequest(
   try {
     // Customer search
     if (pathname === '/api/customers/search' && method === 'GET') {
-      if (user.role !== 'maker') {
-        throw new Error('Forbidden: Only maker can search customers')
+      if (user.role !== 'sales') {
+        throw new Error('Forbidden: Only sales can search customers')
       }
       const idCard = url.searchParams.get('idCard')
       if (!idCard) throw new Error('idCard parameter is required')
@@ -29,8 +29,8 @@ async function mockRequest(
 
     // Get customer info
     if (pathname.match(/^\/api\/customers\/[^/]+\/info$/) && method === 'GET') {
-      if (user.role !== 'maker') {
-        throw new Error('Forbidden: Only maker can view customer info')
+      if (user.role !== 'sales') {
+        throw new Error('Forbidden: Only sales can view customer info')
       }
       const caId = pathname.split('/')[3]
       const userInfo = mockApi.getUserInfo(caId)
@@ -40,8 +40,8 @@ async function mockRequest(
 
     // Create leakage request
     if (pathname === '/api/requests/leakage' && method === 'POST') {
-      if (user.role !== 'maker') {
-        throw new Error('Forbidden: Only maker can create requests')
+      if (user.role !== 'sales') {
+        throw new Error('Forbidden: Only sales can create requests')
       }
       return mockApi.createLeakageRequest(body, user.id)
     }

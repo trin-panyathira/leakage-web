@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../state/auth'
 
 export function Login() {
-  const [name, setName] = useState('maker1')
-  const [role, setRole] = useState<'maker' | 'approver' | 'super_approver'>('maker')
+  const [name, setName] = useState('sales1')
+  const [role, setRole] = useState<'sales' | 'approver' | 'super_approver'>('sales')
   const navigate = useNavigate()
   const { login } = useAuth()
 
@@ -25,13 +25,13 @@ export function Login() {
         <label>
           Role
           <select value={role} onChange={e => setRole(e.target.value as any)}>
-            <option value="maker">maker</option>
-            <option value="approver">approver</option>
-            <option value="super_approver">super_approver</option>
+            <option value="sales">Sales</option>
+            <option value="approver">Approver</option>
+            <option value="super_approver">Super Approver</option>
           </select>
         </label>
         <button type="submit">Login</button>
       </form>
     </div>
   )
-} 
+}
