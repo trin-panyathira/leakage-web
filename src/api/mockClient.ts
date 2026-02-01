@@ -23,8 +23,16 @@ async function mockRequest(
         throw new Error('Forbidden: Only sales can search customers')
       }
       const idCard = url.searchParams.get('idCard')
-      if (!idCard) throw new Error('idCard parameter is required')
-      return mockApi.searchByIdCard(idCard)
+      const firstName = url.searchParams.get('firstName')
+      const lastName = url.searchParams.get('lastName')
+
+      // Search by ID Card if provided
+      if (idCard) {
+        return mockApi.searchByIdCard(idCard)
+      }
+
+      // Search by name (or return all if no parameters)
+      return mockApi.searchByName(firstName || undefined, lastName || undefined)
     }
 
     // Get customer info

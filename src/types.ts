@@ -27,6 +27,8 @@ export interface Action {
 
 export interface CAItem {
   caId: string
+  accountNumber: string
+  idCard: string
   firstName: string
   lastName: string
   loanAmount: number

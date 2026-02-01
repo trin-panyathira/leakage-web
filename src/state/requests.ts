@@ -37,6 +37,14 @@ export async function searchByIdCard(idCard: string, user: User): Promise<CAItem
   return res as CAItem[]
 }
 
+export async function searchByName(firstName: string, lastName: string, user: User): Promise<CAItem[]> {
+  const params = new URLSearchParams()
+  if (firstName) params.append('firstName', firstName)
+  if (lastName) params.append('lastName', lastName)
+  const res = await api.get(`/api/customers/search?${params.toString()}`, user)
+  return res as CAItem[]
+}
+
 export async function getUserInfo(caId: string, user: User): Promise<UserInfo> {
   const res = await api.get(`/api/customers/${caId}/info`, user)
   return res as UserInfo

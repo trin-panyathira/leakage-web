@@ -129,6 +129,13 @@ button.danger { background: #dc2626; }
 
 .user-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 
+/* Inline form layouts */
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.leakage-request-inline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.form-group-inline { display: flex; flex-direction: column; gap: 6px; }
+.form-group-inline label { font-size: 14px; font-weight: 500; color: #374151; }
+.form-group-inline input { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+
 .error { color: #dc2626; background: #fef2f2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fecaca; margin-top: 12px; }
 
 /* History table styles */

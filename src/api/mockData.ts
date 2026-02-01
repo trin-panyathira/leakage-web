@@ -11,6 +11,7 @@ const mockCustomers = [
     accounts: [
       {
         caId: 'CA001',
+        accountNumber: '1001234567',
         firstName: 'John',
         lastName: 'Doe',
         loanAmount: 500000,
@@ -22,6 +23,7 @@ const mockCustomers = [
       },
       {
         caId: 'CA002',
+        accountNumber: '1001234568',
         firstName: 'John',
         lastName: 'Doe',
         loanAmount: 300000,
@@ -38,6 +40,7 @@ const mockCustomers = [
     accounts: [
       {
         caId: 'CA003',
+        accountNumber: '2009876543',
         firstName: 'Jane',
         lastName: 'Smith',
         loanAmount: 750000,
@@ -54,6 +57,7 @@ const mockCustomers = [
     accounts: [
       {
         caId: 'CA004',
+        accountNumber: '3001112222',
         firstName: 'Bob',
         lastName: 'Johnson',
         loanAmount: 1000000,
@@ -145,10 +149,43 @@ export const mockApi = {
     if (!customer) return []
     return customer.accounts.map((acc) => ({
       caId: acc.caId,
+      accountNumber: acc.accountNumber,
+      idCard: customer.idCard,
       firstName: acc.firstName,
       lastName: acc.lastName,
       loanAmount: acc.loanAmount,
     }))
+  },
+
+  searchByName: (firstName?: string, lastName?: string): CAItem[] => {
+    const results: CAItem[] = []
+    const firstNameLower = firstName?.toLowerCase().trim() || ''
+    const lastNameLower = lastName?.toLowerCase().trim() || ''
+
+    for (const customer of mockCustomers) {
+      for (const account of customer.accounts) {
+        const accountFirstName = account.firstName.toLowerCase()
+        const accountLastName = account.lastName.toLowerCase()
+
+        // If both search terms are empty, return all accounts
+        // Otherwise, match if firstName matches (if provided) AND lastName matches (if provided)
+        const firstNameMatch = !firstNameLower || accountFirstName.includes(firstNameLower)
+        const lastNameMatch = !lastNameLower || accountLastName.includes(lastNameLower)
+
+        if (firstNameMatch && lastNameMatch) {
+          results.push({
+            caId: account.caId,
+            accountNumber: account.accountNumber,
+            idCard: customer.idCard,
+            firstName: account.firstName,
+            lastName: account.lastName,
+            loanAmount: account.loanAmount,
+          })
+        }
+      }
+    }
+
+    return results
   },
 
   getUserInfo: (caId: string): UserInfo | null => {
