@@ -72,10 +72,10 @@ export function RequestInfo() {
       </div>
 
       <div style={{marginTop:12}} className="row-actions">
-        <button onClick={() => handleAction('approve')}>Approve</button>
+        <button onClick={() => handleAction('approve')} className="success">Approve</button>
         <button onClick={() => handleAction('reject')} className="danger">Reject</button>
         {user?.role === 'approver' && (
-          <button onClick={() => handleAction('escalate')} className="secondary">Send to Super Approver</button>
+          <button onClick={() => handleAction('escalate')}>Send to Super Approver</button>
         )}
         <button onClick={() => navigate('/approve')} className="secondary">Back</button>
       </div>
