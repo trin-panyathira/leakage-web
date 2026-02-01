@@ -17,6 +17,17 @@ export interface RequestItem {
   createdAt: string
   actions: Action[]
   caId?: string
+  // Leakage-specific fields
+  firstName?: string
+  lastName?: string
+  currentLoanAmount?: number
+  currentLoanRate1st?: number
+  currentLoanRate2nd?: number
+  currentLoanRate3rd?: number
+  newLoanAmount?: number
+  newLoanRate1st?: number
+  newLoanRate2nd?: number
+  newLoanRate3rd?: number
 }
 
 export interface Action {

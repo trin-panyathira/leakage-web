@@ -214,39 +214,47 @@ export function MakeRequest() {
       )}
 
       {/* Step 3: User Information */}
-      {showUserInfo && userInfo && (
+      {showUserInfo && userInfo && selectedCa && (
         <div className="section">
           <h3>User Information</h3>
-          <div className="user-info-grid">
-            <div className="form-group">
+          <div style={{display:'flex',gap:16,marginBottom:8,flexWrap:'wrap'}}>
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
+              <label>Account Number</label>
+              <input value={selectedCa.accountNumber} disabled />
+            </div>
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>First Name</label>
               <input value={userInfo.firstName} disabled />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Last Name</label>
               <input value={userInfo.lastName} disabled />
             </div>
-            <div className="form-group">
+          </div>
+          <div style={{display:'flex',gap:16,marginBottom:8,flexWrap:'wrap'}}>
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Advisor</label>
               <input value={userInfo.advisor} disabled />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Tel</label>
               <input value={userInfo.tel} disabled />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Loan Amount</label>
               <input value={userInfo.loanAmount.toLocaleString()} disabled />
             </div>
-            <div className="form-group">
+          </div>
+          <div style={{display:'flex',gap:16,marginBottom:8,flexWrap:'wrap'}}>
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Current Loan Rate 1st</label>
               <input value={userInfo.currentLoanRate1st} disabled />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Current Loan Rate 2nd</label>
               <input value={userInfo.currentLoanRate2nd} disabled />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{flex:'1 1 calc(33.333% - 11px)',minWidth:200}}>
               <label>Current Loan Rate 3rd</label>
               <input value={userInfo.currentLoanRate3rd} disabled />
             </div>

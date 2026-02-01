@@ -102,12 +102,13 @@ export function History() {
                 <th>CA ID</th>
                 <th>Title</th>
                 <th>Maker</th>
+                <th>New Rates</th>
+                <th>Description</th>
                 <th>Status</th>
                 <th>Approver</th>
                 <th>Super Approver</th>
                 <th>Created At</th>
                 <th>Last Action</th>
-                <th>Description</th>
                 {user?.role === 'sales' && <th>Action</th>}
               </tr>
             </thead>
@@ -121,11 +122,12 @@ export function History() {
                     <td className="history-ca-id">{item.caId || 'N/A'}</td>
                     <td className="history-title">{item.title}</td>
                     <td className="history-maker">{item.makerId}</td>
-                    <td className="history-status">{getStatusBadge(item.status)}</td>
-                    <td className="history-approver">{item.approverId || '-'}</td>
-                    <td className="history-super-approver">{item.superApproverId || '-'}</td>
-                    <td className="history-date">{formatDate(item.createdAt)}</td>
-                    <td className="history-last-action">{getLastAction(item.actions)}</td>
+                    <td className="history-new-rates">
+                      {item.newLoanRate1st !== undefined
+                        ? `${item.newLoanRate1st}%, ${item.newLoanRate2nd}%, ${item.newLoanRate3rd}%`
+                        : '-'
+                      }
+                    </td>
                     <td className="history-description">
                       <div className="description-text" title={item.description}>
                         {item.description.length > 100
@@ -134,6 +136,11 @@ export function History() {
                         }
                       </div>
                     </td>
+                    <td className="history-status">{getStatusBadge(item.status)}</td>
+                    <td className="history-approver">{item.approverId || '-'}</td>
+                    <td className="history-super-approver">{item.superApproverId || '-'}</td>
+                    <td className="history-date">{formatDate(item.createdAt)}</td>
+                    <td className="history-last-action">{getLastAction(item.actions)}</td>
                     {user?.role === 'sales' && (
                       <td>
                         {isApproved && item.caId ? (
