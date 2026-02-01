@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { searchByIdCard, searchByName, getUserInfo, createLeakageRequest } from '../state/requests'
 import { useAuth } from '../state/auth'
 import { CAItem, UserInfo, LeakageRequest } from '../types'
 
 export function MakeRequest() {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -105,31 +107,42 @@ export function MakeRequest() {
   const handleLeakageRequestSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!user || !selectedCa || !userInfo) return
-    
+
     try {
       const res = await createLeakageRequest({
         ...leakageRequest,
         caId: selectedCa.caId,
         userInfo
       }, user)
-      
-      setMessage(`Created leakage request #${res.id}`)
-      // Reset form
-      setIdCard('')
-      setFirstName('')
-      setLastName('')
-      setCaList([])
-      setShowCaList(false)
-      setShowSearch(true)
-      setSelectedCa(null)
-      setUserInfo(null)
-      setShowUserInfo(false)
-      setLeakageRequest({
-        newLoanAmount: 0,
-        requestNewLoanRate1st: 0,
-        requestNewLoanRate2nd: 0,
-        requestNewLoanRate3rd: 0
-      })
+
+      // Check if auto-approved
+      if (res.status === 'APPROVED') {
+        // Navigate to approved page
+        navigate('/approved', {
+          state: {
+            caId: selectedCa.caId,
+            requestId: res.id
+          }
+        })
+      } else {
+        setMessage(`Created leakage request #${res.id}`)
+        // Reset form
+        setIdCard('')
+        setFirstName('')
+        setLastName('')
+        setCaList([])
+        setShowCaList(false)
+        setShowSearch(true)
+        setSelectedCa(null)
+        setUserInfo(null)
+        setShowUserInfo(false)
+        setLeakageRequest({
+          newLoanAmount: 0,
+          requestNewLoanRate1st: 0,
+          requestNewLoanRate2nd: 0,
+          requestNewLoanRate3rd: 0
+        })
+      }
     } catch (err) {
       setError('Failed to create leakage request. Please try again.')
     }

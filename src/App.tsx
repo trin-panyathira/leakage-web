@@ -4,6 +4,8 @@ import { MakeRequest } from './pages/MakeRequest'
 import { Approve } from './pages/Approve'
 import { History } from './pages/History'
 import { Login } from './pages/Login'
+import { Approved } from './pages/Approved'
+import { NLeadsRequest } from './pages/NLeadsRequest'
 import { useAuth } from './state/auth'
 import { NavBar } from './components/NavBar'
 
@@ -50,6 +52,14 @@ export function App() {
           <Route
             path="/history"
             element={user ? <History /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/approved"
+            element={user ? <Approved /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/nleads-request"
+            element={user ? <NLeadsRequest /> : <Navigate to="/login" replace />}
           />
           <Route path="/" element={<Navigate to={defaultPath} replace />} />
           <Route path="*" element={<div>Not Found. <Link to="/">Go Home</Link></div>} />
