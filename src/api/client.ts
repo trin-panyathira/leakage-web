@@ -2,7 +2,7 @@ import { User } from '../types'
 import { mockApiClient } from './mockClient'
 
 // Toggle this flag to switch between mock and real API
-const USE_MOCK_API = true
+const USE_MOCK_API = false
 
 async function request(path: string, method: string, body: any | undefined, user: User) {
   const res = await fetch(path, {
