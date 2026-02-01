@@ -99,6 +99,7 @@ export function History() {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>CA ID</th>
                 <th>Title</th>
                 <th>Maker</th>
                 <th>Status</th>
@@ -117,6 +118,7 @@ export function History() {
                 return (
                   <tr key={item.id} className="history-row">
                     <td className="history-id">#{item.id}</td>
+                    <td className="history-ca-id">{item.caId || 'N/A'}</td>
                     <td className="history-title">{item.title}</td>
                     <td className="history-maker">{item.makerId}</td>
                     <td className="history-status">{getStatusBadge(item.status)}</td>

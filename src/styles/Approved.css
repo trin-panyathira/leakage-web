@@ -4,7 +4,6 @@
   align-items: center;
   min-height: 100vh;
   background-color: #f3f4f6;
-  padding: 20px;
 }
 
 .approved-card {
@@ -49,7 +48,6 @@
   display: flex;
   gap: 12px;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .next-btn {
@@ -60,6 +58,8 @@
   padding: 12px 32px;
   font-size: 16px;
   font-weight: 600;
+  width: 200px;
+  height: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -81,6 +81,8 @@
   padding: 12px 32px;
   font-size: 16px;
   font-weight: 600;
+  width: 200px;
+  height: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
 }

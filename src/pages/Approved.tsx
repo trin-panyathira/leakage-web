@@ -86,7 +86,7 @@ export function Approved() {
         </div>
 
         <p className="approved-message">
-          CA {state.caId} Auto approved
+          {state.caId} was approved
         </p>
 
         <div className="approved-buttons">

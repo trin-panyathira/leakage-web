@@ -88,7 +88,7 @@ export function WaitingApprove() {
         </div>
 
         <p className="waiting-approve-message">
-          ระบบจะส่ง Noti ผ่าน Email ของท่านหากผลการพิจารณาเสร็จสิ้น
+          ระบบจะแจ้งเตือนผ่าน Email ของท่านหากผลการพิจารณาเสร็จสิ้น
         </p>
 
         <button onClick={handleBackToHome} className="back-home-btn">
