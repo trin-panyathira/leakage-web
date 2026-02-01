@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { MakeRequest } from './pages/MakeRequest'
 import { Approve } from './pages/Approve'
+import { RequestInfo } from './pages/RequestInfo'
 import { History } from './pages/History'
 import { Login } from './pages/Login'
 import { Approved } from './pages/Approved'
@@ -32,8 +33,10 @@ export function App() {
         />
       </aside>
       <main className="main">
+        <AppNavigationListener />
         <Routes>
           <Route path="/login" element={<Login />} />
+                    <Route path="/request/:id" element={user ? <RequestInfo /> : <Navigate to="/login" replace />} />
           <Route
             path="/make-request"
             element={
@@ -72,4 +75,18 @@ export function App() {
       </main>
     </div>
   )
+}
+
+export function AppNavigationListener() {
+  const navigate = useNavigate()
+  useEffect(() => {
+    function handler(e: any) {
+      const { id, item } = e.detail || {}
+      if (!id) return
+      navigate(`/request/${id}`, { state: { item } })
+    }
+    window.addEventListener('navigate-to-request', handler)
+    return () => window.removeEventListener('navigate-to-request', handler)
+  }, [navigate])
+  return null
 }
