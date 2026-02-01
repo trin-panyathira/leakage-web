@@ -81,6 +81,7 @@ const initializeMockData = () => {
       makerId: 'sales1',
       status: 'PENDING_APPROVER',
       createdAt: new Date(Date.now() - 86400000).toISOString(),
+      caId: 'CA001',
       actions: [
         {
           at: new Date(Date.now() - 86400000).toISOString(),
@@ -99,6 +100,7 @@ const initializeMockData = () => {
       status: 'APPROVED',
       approverId: 'approver1',
       createdAt: new Date(Date.now() - 172800000).toISOString(),
+      caId: 'CA003',
       actions: [
         {
           at: new Date(Date.now() - 172800000).toISOString(),
@@ -123,6 +125,7 @@ const initializeMockData = () => {
       status: 'PENDING_SUPER',
       approverId: 'approver1',
       createdAt: new Date(Date.now() - 259200000).toISOString(),
+      caId: 'CA004',
       actions: [
         {
           at: new Date(Date.now() - 259200000).toISOString(),
@@ -228,6 +231,7 @@ export const mockApi = {
       status: autoApprove ? 'APPROVED' : 'PENDING_APPROVER',
       createdAt: now,
       actions: [],
+      caId: caId,
     }
 
     if (autoApprove) {

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../state/auth'
 import { historyForUser } from '../state/requests'
 import { RequestItem } from '../types'
@@ -14,6 +15,7 @@ const STATUS_OPTIONS: Array<RequestItem['status'] | 'ALL'> = [
 
 export function History() {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [items, setItems] = useState<RequestItem[]>([])
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<'ALL' | RequestItem['status']>('ALL')
@@ -105,7 +107,7 @@ export function History() {
                 <th>Created At</th>
                 <th>Last Action</th>
                 <th>Description</th>
-                {user?.role === 'maker' && <th>Action</th>}
+                {user?.role === 'sales' && <th>Action</th>}
               </tr>
             </thead>
             <tbody>
@@ -124,34 +126,38 @@ export function History() {
                     <td className="history-last-action">{getLastAction(item.actions)}</td>
                     <td className="history-description">
                       <div className="description-text" title={item.description}>
-                        {item.description.length > 100 
-                          ? `${item.description.substring(0, 100)}...` 
+                        {item.description.length > 100
+                          ? `${item.description.substring(0, 100)}...`
                           : item.description
                         }
                       </div>
                     </td>
-                    {user?.role === 'maker' && (
+                    {user?.role === 'sales' && (
                       <td>
-                        {isApproved && !hasSentEmail ? (
+                        {isApproved && item.caId ? (
                           <button
-                            disabled={sending === item.id}
-                            onClick={async () => {
-                              setSending(item.id)
-                              setError(null)
-                              try {
-                                await sendEmailForRequest(item.id, user)
-                                await refresh()
-                              } catch (e: any) {
-                                setError('Failed to send email: ' + (e?.message || 'Unknown error'))
-                              } finally {
-                                setSending(null)
-                              }
+                            onClick={() => {
+                              navigate('/approved', {
+                                state: {
+                                  caId: item.caId,
+                                  requestId: item.id
+                                }
+                              })
+                            }}
+                            style={{
+                              background: 'linear-gradient(135deg, #6BBE4A 0%, #4a9c2e 100%)',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '6px',
+                              padding: '8px 16px',
+                              fontSize: '14px',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              transition: 'all 0.3s ease'
                             }}
                           >
-                            {sending === item.id ? 'Sending...' : 'Send Email'}
+                            View Approved
                           </button>
-                        ) : isApproved && hasSentEmail ? (
-                          <span style={{ color: 'green', fontWeight: 'bold' }}>Already sent email</span>
                         ) : null}
                       </td>
                     )}
