@@ -12,16 +12,18 @@ export function NavBar({ sidebarVisible, onToggleSidebar }: NavBarProps) {
 
   return (
     <>
-      <button
-        className={`sidebar-toggle ${sidebarVisible ? 'active' : ''}`}
-        onClick={onToggleSidebar}
-        title={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
-        aria-label={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
-      >
-        {sidebarVisible ? '«' : '»'}
-      </button>
       <nav className="sidebar-nav">
-        <div className="brand">Leakage</div>
+        <div className="brand-container">
+          <div className="brand">Leakage</div>
+          <button
+            className={`sidebar-toggle ${sidebarVisible ? 'active' : ''}`}
+            onClick={onToggleSidebar}
+            title={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
+            aria-label={sidebarVisible ? 'Hide sidebar' : 'Show sidebar'}
+          >
+            {sidebarVisible ? '«' : '»'}
+          </button>
+        </div>
         <div className="menu">
           {user?.role === 'sales' && <Link to="/make-request" className="menu-link">Make Request</Link>}
           {(user?.role === 'approver' || user?.role === 'super_approver') && (
