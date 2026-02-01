@@ -6,6 +6,7 @@ import { History } from './pages/History'
 import { Login } from './pages/Login'
 import { Approved } from './pages/Approved'
 import { NLeadsRequest } from './pages/NLeadsRequest'
+import { WaitingApprove } from './pages/WaitingApprove'
 import { useAuth } from './state/auth'
 import { NavBar } from './components/NavBar'
 
@@ -60,6 +61,10 @@ export function App() {
           <Route
             path="/nleads-request"
             element={user ? <NLeadsRequest /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/waiting-approve"
+            element={user ? <WaitingApprove /> : <Navigate to="/login" replace />}
           />
           <Route path="/" element={<Navigate to={defaultPath} replace />} />
           <Route path="*" element={<div>Not Found. <Link to="/">Go Home</Link></div>} />

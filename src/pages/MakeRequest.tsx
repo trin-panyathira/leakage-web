@@ -125,22 +125,12 @@ export function MakeRequest() {
           }
         })
       } else {
-        setMessage(`Created leakage request #${res.id}`)
-        // Reset form
-        setIdCard('')
-        setFirstName('')
-        setLastName('')
-        setCaList([])
-        setShowCaList(false)
-        setShowSearch(true)
-        setSelectedCa(null)
-        setUserInfo(null)
-        setShowUserInfo(false)
-        setLeakageRequest({
-          newLoanAmount: 0,
-          requestNewLoanRate1st: 0,
-          requestNewLoanRate2nd: 0,
-          requestNewLoanRate3rd: 0
+        // Navigate to waiting-approve page
+        navigate('/waiting-approve', {
+          state: {
+            caId: selectedCa.caId,
+            requestId: res.id
+          }
         })
       }
     } catch (err) {

@@ -1,0 +1,75 @@
+.waiting-approve-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 20px;
+}
+
+.waiting-approve-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.waiting-approve-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 40px 0;
+  line-height: 1.5;
+}
+
+.waiting-approve-title .highlight {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.waiting-approve-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.time-icons {
+  width: 300px;
+  height: 300px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.waiting-approve-message {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 30px 0;
+  line-height: 1.6;
+}
+
+.back-home-btn {
+  background: linear-gradient(135deg, #2d6cdf 0%, #1e40af 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.back-home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 108, 223, 0.3);
+}
+
+.back-home-btn:active {
+  transform: translateY(0);
+}
+
