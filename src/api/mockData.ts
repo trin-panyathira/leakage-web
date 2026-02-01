@@ -175,22 +175,47 @@ export const mockApi = {
     userId: string
   ): RequestItem => {
     const { caId, userInfo, newLoanAmount, requestNewLoanRate1st, requestNewLoanRate2nd, requestNewLoanRate3rd } = payload
+
+    // Auto-approve logic: check if all new rates are >= current rates - 0.5%
+    const autoApprove =
+      requestNewLoanRate1st >= userInfo.currentLoanRate1st - 0.5 &&
+      requestNewLoanRate2nd >= userInfo.currentLoanRate2nd - 0.5 &&
+      requestNewLoanRate3rd >= userInfo.currentLoanRate3rd - 0.5
+
+    const now = new Date().toISOString()
     const newRequest: RequestItem = {
       id: requestIdCounter++,
       title: `Leakage Request for ${caId}`,
       description: `Customer: ${userInfo.firstName} ${userInfo.lastName}, CA: ${caId}, New Loan Amount: ${newLoanAmount}, Rates: ${requestNewLoanRate1st}%, ${requestNewLoanRate2nd}%, ${requestNewLoanRate3rd}%`,
       makerId: userId,
-      status: 'PENDING_APPROVER',
-      createdAt: new Date().toISOString(),
-      actions: [
-        {
-          at: new Date().toISOString(),
-          actorId: userId,
-          type: 'CREATE',
-          note: 'Initial request created',
-        },
-      ],
+      status: autoApprove ? 'APPROVED' : 'PENDING_APPROVER',
+      createdAt: now,
+      actions: [],
     }
+
+    if (autoApprove) {
+      // Auto-approved: add CREATE_LEAKAGE and APPROVE actions
+      newRequest.actions.push({
+        at: now,
+        actorId: userId,
+        type: 'CREATE_LEAKAGE',
+        note: 'Auto-approved: all new rates >= current - 0.5%',
+      })
+      newRequest.actions.push({
+        at: now,
+        actorId: userId,
+        type: 'APPROVE',
+        note: 'Auto-approved by system',
+      })
+    } else {
+      // Manual approval required
+      newRequest.actions.push({
+        at: now,
+        actorId: userId,
+        type: 'CREATE_LEAKAGE',
+      })
+    }
+
     mockRequests.push(newRequest)
     return newRequest
   },
