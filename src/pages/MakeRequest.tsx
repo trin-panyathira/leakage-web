@@ -305,8 +305,8 @@ export function MakeRequest() {
         </div>
       )}
 
-      {message && <p className="success">{message}</p>}
-      {error && <p className="error">{error}</p>}
+      {message && <p className="success-txn">{message}</p>}
+      {error && <p className="error-txn">{error}</p>}
     </div>
   )
 } 

@@ -85,12 +85,13 @@ body { margin: 0; background: #f6f7fb; color: #222; }
 .form label { display: grid; gap: 6px; font-size: 14px; }
 input, textarea, select { padding: 8px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
 button { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; background: #2d6cdf; color: white; cursor: pointer; }
+button.success { background: #065f46; }
 button.secondary { background: #6b7280; }
 button.danger { background: #dc2626; }
 .row { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; }
 .row-actions { display: flex; gap: 8px; }
 .muted { color: #666; font-size: 12px; }
-.success { color: #0a7d32; } 
+.success-txn { color: #0a7d32; } 
 
 .header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .page-title { margin: 0; }
@@ -137,6 +138,7 @@ button.danger { background: #dc2626; }
 .form-group-inline input { padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
 
 .error { color: #dc2626; background: #fef2f2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fecaca; margin-top: 12px; }
+.error-txn { color: #dc2626; background: #fef2f2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fecaca; margin-top: 12px; }
 
 /* History table styles */
 .table-container { 
