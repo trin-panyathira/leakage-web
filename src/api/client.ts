@@ -1,4 +1,8 @@
 import { User } from '../types'
+import { mockApiClient } from './mockClient'
+
+// Toggle this flag to switch between mock and real API
+const USE_MOCK_API = true
 
 async function request(path: string, method: string, body: any | undefined, user: User) {
   const res = await fetch(path, {
@@ -18,7 +22,10 @@ async function request(path: string, method: string, body: any | undefined, user
   return await res.json()
 }
 
-export const api = {
+const realApi = {
   get: (path: string, user: User) => request(path, 'GET', undefined, user),
   post: (path: string, body: any, user: User) => request(path, 'POST', body, user),
-} 
+}
+
+// Export either mock or real API based on the flag
+export const api = USE_MOCK_API ? mockApiClient : realApi
